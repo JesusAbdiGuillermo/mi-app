@@ -1,38 +1,69 @@
-.App {
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+
+.card {
+  padding: 2em;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.read-the-docs {
+  color: #888;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.combobox {
+  display: none;
 }
 
-.App-link {
-  color: #61dafb;
+.combo-column1 {
+  float: left;
+  width: 20%;
+}
+.combo-column2 {
+  float: right;
+  width: 80%;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.combo-row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+p{
+  text-align: left;
+  font-size: 12px;
+  padding-left: 10px;
+}
+p.sombreado{
+  font-size: 10px;
+  color: gray;
+}
+
+.combo-row.pointer {
+  cursor: pointer;
+}
+.combo-row:hover {
+  background-color: #ffffff;
+}
+
+label{
+  text-align: left;
+  float: left;
+  font-size: 12px;
+
+}
+small{
+  color: gray;
+}
+
+img.loading{
+  width: 20%;
+  margin-inline: auto
 }
