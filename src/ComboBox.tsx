@@ -1,26 +1,22 @@
 import { useState } from "react";
 import axios from "axios";
 import loading from './gif/loading.gif';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 
 interface Opcion {
   id: string;
   name: string;
   domains: string
 }
-
 const ComboBox = () => {
   const [opciones, setOpciones] = useState<Opcion[]>([]);
   const [ShowLoading, setShowLoading] = useState(false);
   const [showCombobox, setshowCombobox] = useState(false);
   const [selected, setSelected] = useState<string | "">("");
   const [showComboboxNoFound, setshowComboboxNoFound] = useState(false);
-
-  const sleep = (milliseconds : any) => {
+  const sleep = (milliseconds: any) => {
     return new Promise(resolve => setTimeout(resolve, milliseconds))
   }
-  const funncionesCombobox = (result : Opcion[]) =>{
+  const funncionesCombobox = (result: Opcion[]) => {
 
     if (result.length > 0) {
       setShowLoading(false)
@@ -33,12 +29,12 @@ const ComboBox = () => {
       setshowComboboxNoFound(true)
     }
   }
-  const eventos = async(name: string) => {
+  const eventos = async (name: string) => {
     try {
       setSelected(name)
-      if(name.length >= 3){
+      if (name.length >= 3) {
         const response = axios.get<Opcion[]>(`http://localhost:3001/search?name=${name}`);
-        
+
         setShowLoading(true)
         setshowCombobox(false)
         setshowComboboxNoFound(false)
@@ -47,15 +43,15 @@ const ComboBox = () => {
         const result = (await response).data
         setOpciones(result);
         funncionesCombobox(result)
-        
-      }else{
+
+      } else {
         setOpciones([])
         funncionesCombobox([])
         setshowCombobox(false)
         setshowComboboxNoFound(false)
       }
 
-      
+
     } catch (error) {
       alert("Error obteniendo datos:" + error);
     }
@@ -63,9 +59,19 @@ const ComboBox = () => {
 
 
   }
+  const handleBlur = () => {
+    if(selected != "")
+      setshowCombobox(false);
+  };
+  const handleOnFocus = () => {
+    if(opciones.length > 0)
+      setshowCombobox(true);
+  };
   return (
-    <div className="relative w-64 mx-auto mt-10">
-      <label> WebSite<FontAwesomeIcon icon={["fas", "coffee"]} /></label>
+    <div className="relative w-64 mx-auto mt-10"
+
+    >
+      <label> WebSite<i className="fa-solid fa-circle-question"></i></label>
       <input
         type="text"
         placeholder="Buscar..."
@@ -77,6 +83,7 @@ const ComboBox = () => {
 
         }
         
+
         className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
       />
       {ShowLoading && (
@@ -97,10 +104,10 @@ const ComboBox = () => {
               setOpciones([]);
               setSelected(item.name);
             }
-              
+
             } >
               <div className="combo-column1">
-                <img src={'/src/icons/ic_' + item.id + '.svg'} />
+                <img src={'./icons/ic_' + item.id + '.svg'} />
               </div>
               <div className="combo-column2">
                 <p><strong>{item.name}</strong> </p>
